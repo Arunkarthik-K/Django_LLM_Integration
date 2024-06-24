@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django LLM</title>
+</head>
+<body>
+    <h1>Text Summarization Application</h1><br>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <p>Please select the LLM Model:</p>
+        <label class="radio-inline">
+        <input type="radio" name="llm_model"  value="Google Pegasus multi news" checked>Google Pegasus Multi News
+        </label>
+        <label class="radio-inline">
+        <input type="radio" name="llm_model"  value="Goggle Pegasus xsum">Goggle Pegasus xsum
+        </label>
+        <br>
+        <br>
+
+        <h4>Input text</h4>
+        <textarea name="prompt_input" id="prompt_input" cols="150" rows="10"></textarea><br><br>
+
+        {% if response %}
+            <h4>Output text</h4>
+            <textarea name="prompt_output" id="prompt_output" cols="150" rows="10">{{ response }}</textarea><br><br>
+        {% endif %}
+
+        <button type="submit"><a href="{% url 'home' %}">Clear</a></button>
+        <button type="submit">Summarize</button>
+    </form>
+
+    <br>
+    <br>
+
+    <a href="{% url 'history' %}">View History</a>
+
+    <br>
+    <br>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li>{{messages}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
